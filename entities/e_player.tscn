@@ -2,9 +2,26 @@
 
 [ext_resource type="Script" uid="uid://c6aok0256txa2" path="res://entities/e_player.gd" id="1_hpjvr"]
 [ext_resource type="Texture2D" uid="uid://blin07jtsya65" path="res://icon.svg" id="2_blvgt"]
+[ext_resource type="Script" uid="uid://b6k13gc2m4e5s" path="res://addons/gecs/ecs/component.gd" id="2_uhmt1"]
+[ext_resource type="Script" uid="uid://dj4obkfdroq04" path="res://components/c_health.gd" id="3_3447d"]
+[ext_resource type="Script" uid="uid://bt87p1opvxhwb" path="res://components/c_velocity.gd" id="4_egwyu"]
+[ext_resource type="Script" uid="uid://vxxt5aa5rrs5" path="res://components/c_user_input.gd" id="5_rn3ab"]
+
+[sub_resource type="Resource" id="Resource_41wcs"]
+script = ExtResource("3_3447d")
+metadata/_custom_type_script = "uid://dj4obkfdroq04"
+
+[sub_resource type="Resource" id="Resource_sx5h8"]
+script = ExtResource("4_egwyu")
+metadata/_custom_type_script = "uid://bt87p1opvxhwb"
+
+[sub_resource type="Resource" id="Resource_di2pd"]
+script = ExtResource("5_rn3ab")
+metadata/_custom_type_script = "uid://vxxt5aa5rrs5"
 
 [node name="Player" type="Node2D" unique_id=1335722326]
 script = ExtResource("1_hpjvr")
+component_resources = Array[ExtResource("2_uhmt1")]([SubResource("Resource_41wcs"), SubResource("Resource_sx5h8"), SubResource("Resource_di2pd")])
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=152517252]
 position = Vector2(323, 327)

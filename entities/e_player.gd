@@ -2,10 +2,13 @@
 class_name Player
 extends Entity
 
-func define_components() -> Array:
-	return [C_Health.new(), C_Velocity.new(), C_UserInput.new()]
+# The components have been added in Inspector instead
+# which according to documentation is the recommended way
+#func define_components() -> Array:
+#	return [C_Health.new(), C_Velocity.new(), C_UserInput.new()]
 
 func on_ready():
 	var c_vel = get_component(C_Velocity) as C_Velocity
 	if c_vel:
 		c_vel.direction = Vector2.RIGHT
+		
