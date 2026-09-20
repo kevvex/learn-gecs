@@ -3,3 +3,4 @@ extends Component
 
 @export var current: float = 100.0
 @export var maximum: float = 100.0
+@export var is_dead: bool = false

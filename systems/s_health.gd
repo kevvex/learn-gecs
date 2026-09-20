@@ -7,5 +7,5 @@ func query() -> QueryBuilder:
 func process(entities: Array[Entity], components: Array, delta: float) -> void:
 	for entity in entities:
 		var health = entity.get_component(C_Health) as C_Health
-		if health.current <= 0.0:
+		if health.current <= 0.0: # and not health.is_dead
 			print("Entity died: ", entity.name)
