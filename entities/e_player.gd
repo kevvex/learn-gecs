@@ -3,7 +3,7 @@ class_name Player
 extends Entity
 
 func define_components() -> Array:
-	return [C_Health.new(), C_Velocity.new()]
+	return [C_Health.new(), C_Velocity.new(), C_UserInput.new()]
 
 func on_ready():
 	var c_vel = get_component(C_Velocity) as C_Velocity

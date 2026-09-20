@@ -7,4 +7,4 @@ func query() -> QueryBuilder:
 func process(entities: Array[Entity], components: Array, delta: float) -> void:
 	for entity: Entity in entities:
 		var vel = entity.get_component(C_Velocity) as C_Velocity
-		entity.position += vel.direction * delta * 10.0
+		entity.position += vel.direction * delta
