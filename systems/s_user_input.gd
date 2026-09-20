@@ -16,5 +16,4 @@ func process(entities: Array[Entity], components: Array, delta: float) -> void:
 			var health = entity.get_component(C_Health) as C_Health
 			if health:
 				health.current = -2
-				health.is_dead = true
 				
