@@ -10,7 +10,7 @@ func _ready():
 	ECS.world.add_system(MovementSystem.new())
 	ECS.world.add_system(HealthSystem.new())
 	
-	var player = preload("res://entities/e_player.tscn").instantiate()
+	var player = preload("res://example_small/entities/e_player.tscn").instantiate()
 	ECS.world.add_entity(player)
 
 func _process(delta):

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ba75x5aef2i3i"]
 
-[ext_resource type="Script" uid="uid://d3kily6644daw" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://d3kily6644daw" path="res://example_small/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://cdu5tlyk72uu4" path="res://addons/gecs/ecs/world.gd" id="2_0xm2m"]
 
 [node name="Main" type="Node" unique_id=1454665162]
