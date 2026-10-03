@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cld4ykydc70bv"]
+
+[ext_resource type="Script" uid="uid://c6vt02du4mmr0" path="res://example_inventory/main.gd" id="1_c4q40"]
+[ext_resource type="Script" uid="uid://cdu5tlyk72uu4" path="res://addons/gecs/ecs/world.gd" id="2_43qdm"]
+[ext_resource type="PackedScene" uid="uid://cm2yws3m1fija" path="res://example_inventory/entities/e_hero.tscn" id="3_va5sx"]
+[ext_resource type="Script" uid="uid://b3vi2ingux88g" path="res://addons/gecs/lib/system_group.gd" id="4_fuxsm"]
+[ext_resource type="Script" uid="uid://vhbeavho2k66" path="res://example_inventory/systems/s_hero_movement_system.gd" id="5_xkycb"]
+
+[node name="Main" type="Node2D" unique_id=1129991877]
+script = ExtResource("1_c4q40")
+
+[node name="World" type="Node" parent="." unique_id=1049793937]
+script = ExtResource("2_43qdm")
+entity_nodes_root = NodePath("Entities")
+system_nodes_root = NodePath("Systems")
+metadata/_custom_type_script = "uid://cdu5tlyk72uu4"
+
+[node name="Entities" type="Node" parent="World" unique_id=1035400547]
+
+[node name="Hero" parent="World/Entities" unique_id=1336168140 instance=ExtResource("3_va5sx")]
+position = Vector2(156, 198)
+
+[node name="Systems" type="Node" parent="World" unique_id=1116993207]
+
+[node name="physics" type="Node" parent="World/Systems" unique_id=254052938]
+script = ExtResource("4_fuxsm")
+metadata/_custom_type_script = "uid://b3vi2ingux88g"
+
+[node name="HeroMovementSystem" type="Node" parent="World/Systems/physics" unique_id=1016670188]
+script = ExtResource("5_xkycb")
+metadata/_custom_type_script = "uid://dyrahdwwpjpri"
