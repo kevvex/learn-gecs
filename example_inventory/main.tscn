@@ -28,4 +28,5 @@ metadata/_custom_type_script = "uid://b3vi2ingux88g"
 
 [node name="HeroMovementSystem" type="Node" parent="World/Systems/physics" unique_id=1016670188]
 script = ExtResource("5_xkycb")
+group = &"physics"
 metadata/_custom_type_script = "uid://dyrahdwwpjpri"
