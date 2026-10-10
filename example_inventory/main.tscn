@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://c6vt02du4mmr0" path="res://example_inventory/main.gd" id="1_c4q40"]
 [ext_resource type="Script" uid="uid://cdu5tlyk72uu4" path="res://addons/gecs/ecs/world.gd" id="2_43qdm"]
 [ext_resource type="PackedScene" uid="uid://cm2yws3m1fija" path="res://example_inventory/entities/e_hero.tscn" id="3_va5sx"]
+[ext_resource type="PackedScene" uid="uid://cpmltyu0tr1co" path="res://example_inventory/entities/e_pickup.tscn" id="4_4v62c"]
 [ext_resource type="Script" uid="uid://b3vi2ingux88g" path="res://addons/gecs/lib/system_group.gd" id="4_fuxsm"]
+[ext_resource type="Script" uid="uid://baknecplrofsh" path="res://example_inventory/entities/e_pickup.gd" id="5_220l1"]
 [ext_resource type="Script" uid="uid://vhbeavho2k66" path="res://example_inventory/systems/s_hero_movement_system.gd" id="5_xkycb"]
 
 [node name="Main" type="Node2D" unique_id=1129991877]
@@ -19,6 +21,10 @@ metadata/_custom_type_script = "uid://cdu5tlyk72uu4"
 
 [node name="Hero" parent="World/Entities" unique_id=1336168140 instance=ExtResource("3_va5sx")]
 position = Vector2(156, 198)
+
+[node name="Pickup" parent="World/Entities" unique_id=1996555682 instance=ExtResource("4_4v62c")]
+position = Vector2(354, 129)
+script = ExtResource("5_220l1")
 
 [node name="Systems" type="Node" parent="World" unique_id=1116993207]
 
