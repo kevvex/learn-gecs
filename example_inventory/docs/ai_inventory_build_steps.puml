@@ -1,0 +1,134 @@
+@startuml InventoryBuildFromScratch
+title Build the GECS inventory example from scratch
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #F7F7FB
+  BorderColor #4A5268
+  DiamondBackgroundColor #FFF2CC
+  DiamondBorderColor #A67C00
+  ArrowColor #4A5268
+}
+
+start
+
+partition "1. Decide the model" {
+  :Write the first playable behavior and acceptance checks;
+  note right
+    Start small: one hero, one item, pick up,
+    select, use, and see a visible result.
+    Expand to stacks, dropping, and item variants later.
+  end note
+  :Choose relationship-based ownership;
+  note right
+    An inventory item is an Entity with C_Item
+    and an OwnedBy relationship to its hero.
+    The inventory is a query, not an array or container.
+  end note
+}
+
+partition "2. Define data and entities" {
+  :Create small data-only components;
+  note right
+    Core: C_Hero, C_Item, C_Quantity,
+    C_OwnedBy, C_IsActiveItem,
+    C_HasActiveItem, C_CycleItem,
+    C_RequestUseItem, C_PickedUp.
+    Add C_HitPoints, C_MoveSpeed, C_Locked,
+    and C_SpeedBoost only for those features.
+  end note
+  :Create Hero, Pickup, and Door Entity scenes;
+  note right
+    Put gameplay state in define_components().
+    Keep scene-node references and overlap callbacks
+    on the relevant Entity; callbacks add ECS data tags.
+  end note
+  :Define item templates as C_Item .tres Resources;
+  note right
+    Give each type a stable type_id and presentation data.
+    Reference use/pickup ItemAction Resources from the template.
+  end note
+}
+
+partition "3. Make inventory data queryable" {
+  :Create cached wildcard Relationship patterns;
+  :Add ItemQueries for owned, active, and sorted items;
+  note right
+    Use an instance-targeted OwnedBy query for one hero.
+    Sorting by type_id keeps cycling and UI stable.
+  end note
+  :Create ItemUtils to compose item templates into entities;
+  note right
+    Share the read-only C_Item template.
+    Add a fresh C_Quantity and deep-copy mutable extras.
+  end note
+}
+
+partition "4. Centralize inventory mutations" {
+  :Implement InventoryUtils;
+  note right
+    Build operations around add/remove item,
+    consolidate stacks, find active item,
+    and set_active_item.
+    Keep active-item tag and relationship changes
+    in one place; emit inventory/active-item events.
+  end note
+  if (Can one item be added, queried, selected, and removed?) then (no)
+    :Fix the data/query/helper layer before adding input;
+    stop
+  else (yes)
+  endif
+}
+
+partition "5. Define item behavior" {
+  :Create ItemAction Resource interface and ActionQueue;
+  note right
+    dispatch() queues behavior; ActionsSystem drains
+    the queue once at a known safe point.
+  end note
+  :Add one concrete action and prove it end-to-end;
+  note right
+    Then add variants: health kit heals and consumes;
+    key removes C_Locked but is retained;
+    boots add timed C_SpeedBoost and are consumed;
+    coin has no use action and stacks.
+  end note
+}
+
+partition "6. Connect input and the game world" {
+  :Implement ItemsSystem for use requests and cycling;
+  note right
+    Use C_RequestUseItem / C_CycleItem as one-shot
+    request tags, and queue structural changes with cmd.
+  end note
+  :Implement PickupSystem for tagged floor pickups;
+  note right
+    On overlap, Pickup adds C_PickedUp and OwnedBy(hero).
+    The system composes/adds the inventory item and
+    removes the floor pickup safely at command-buffer flush.
+  end note
+  :Implement drop as the inverse pickup action;
+  :Implement movement and timed-effect systems as needed;
+}
+
+partition "7. Keep presentation reactive" {
+  :Add observers for inventory and active-item events;
+  :Add component observers for health, buffs, and doors;
+  note right
+    For example, C_HitPoints emits property_changed;
+    O_Door reacts to C_Locked removal.
+    Gameplay emits events or changes components;
+    it does not directly update the quick-bar UI.
+  end note
+}
+
+partition "8. Assemble and practice" {
+  :Wire World, Entity scenes, systems, observers, and UI;
+  :Schedule input before gameplay;
+  :Put ActionsSystem last in the gameplay group;
+  :Run movement from the physics group;
+  :Test pickup → stack → cycle → use → drop;
+  :Test health, key/door, and timed-boost edge cases;
+}
+
+stop
+@enduml

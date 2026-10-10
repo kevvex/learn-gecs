@@ -1,0 +1,58 @@
+@startuml InventoryRuntimeFlow
+title Runtime flow: pickup and item use
+skinparam shadowing false
+skinparam sequence {
+  ArrowColor #4A5268
+  LifeLineBorderColor #4A5268
+  LifeLineBackgroundColor #F7F7FB
+  ParticipantBorderColor #4A5268
+  ParticipantBackgroundColor #E9ECF5
+}
+
+actor "Player" as Player
+participant "Pickup overlap callback" as Pickup
+participant "HeroInputSystem" as InputSystem
+participant "ItemsSystem" as ItemsSystem
+participant "PickupSystem" as PickupSystem
+participant "InventoryUtils" as Inventory
+participant "ItemAction / ActionQueue" as ActionQueue
+participant "ActionsSystem\n(last gameplay system)" as ActionsSystem
+participant "Observers / UI" as Observers
+
+== Picking up an item ==
+Player -> Pickup: enter pickup Area2D
+Pickup -> Pickup: add C_PickedUp + OwnedBy(hero)
+note over PickupSystem
+  The tags make the pickup match PickupSystem
+  during the next gameplay processing pass.
+end note
+PickupSystem -> PickupSystem: query C_IsPickup + C_PickedUp + OwnedBy(Hero)
+PickupSystem -> ActionQueue: dispatch optional pickup action
+PickupSystem -> PickupSystem: queue atomic inventory-add closure, then pickup removal
+note over PickupSystem,Inventory
+  The command-buffer flush runs the closure before removing
+  the pickup, while its item template is still available.
+end note
+PickupSystem -> Inventory: at flush: add_to_inventory(hero, template, quantity)
+Inventory -> Inventory: compose item entity; add OwnedBy(hero)
+Inventory -> Inventory: consolidate matching type_id stacks
+Inventory -> Observers: emit inventory_changed / active_item_changed
+PickupSystem -> PickupSystem: remove floor pickup at flush
+Observers -> Observers: rebuild quick bar from inventory query
+
+== Using the active item ==
+Player -> ItemsSystem: press use_item
+ItemsSystem -> ItemsSystem: queue C_RequestUseItem on active item
+note over ItemsSystem
+  The use-input sub-system runs after the request
+  consumer, so this request is intentionally honored
+  on the following gameplay frame.
+end note
+ItemsSystem -> ItemsSystem: next frame: consume request and dispatch action
+ItemsSystem -> ActionQueue: enqueue item action
+ActionsSystem -> ActionQueue: drain at end of gameplay group
+ActionQueue -> Inventory: action applies gameplay/inventory changes
+Inventory -> Observers: emit event or component change
+Observers -> Observers: update quick bar, status, toast, or door
+
+@enduml
