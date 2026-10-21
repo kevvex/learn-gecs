@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://c6ok3gcnulhg"]
 
 [ext_resource type="Script" uid="uid://c6aok0256txa2" path="res://example_small/entities/e_player.gd" id="1_hpjvr"]
-[ext_resource type="Texture2D" uid="uid://blin07jtsya65" path="res://icon.svg" id="2_blvgt"]
 [ext_resource type="Script" uid="uid://b6k13gc2m4e5s" path="res://addons/gecs/ecs/component.gd" id="2_uhmt1"]
 [ext_resource type="Script" uid="uid://dj4obkfdroq04" path="res://example_small/components/c_health.gd" id="3_3447d"]
 [ext_resource type="Script" uid="uid://bt87p1opvxhwb" path="res://example_small/components/c_velocity.gd" id="4_egwyu"]
 [ext_resource type="Script" uid="uid://vxxt5aa5rrs5" path="res://example_small/components/c_user_input.gd" id="5_rn3ab"]
+[ext_resource type="Texture2D" uid="uid://chnjhos3rbm4a" path="res://example_small/entities/spr_PlayerShip_strip7.png" id="7_jkdl3"]
 
 [sub_resource type="Resource" id="Resource_41wcs"]
 script = ExtResource("3_3447d")
@@ -19,10 +19,67 @@ metadata/_custom_type_script = "uid://bt87p1opvxhwb"
 script = ExtResource("5_rn3ab")
 metadata/_custom_type_script = "uid://vxxt5aa5rrs5"
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_almsw"]
+atlas = ExtResource("7_jkdl3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_la7jt"]
+atlas = ExtResource("7_jkdl3")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_atbea"]
+atlas = ExtResource("7_jkdl3")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jjns"]
+atlas = ExtResource("7_jkdl3")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8e3s6"]
+atlas = ExtResource("7_jkdl3")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2drtb"]
+atlas = ExtResource("7_jkdl3")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36ar8"]
+atlas = ExtResource("7_jkdl3")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6bl33"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_almsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_la7jt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_atbea")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7jjns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8e3s6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2drtb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36ar8")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Player" type="Node2D" unique_id=1335722326]
 script = ExtResource("1_hpjvr")
 component_resources = Array[ExtResource("2_uhmt1")]([SubResource("Resource_41wcs"), SubResource("Resource_sx5h8"), SubResource("Resource_di2pd")])
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=152517252]
-position = Vector2(323, 327)
-texture = ExtResource("2_blvgt")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1983071702]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_6bl33")

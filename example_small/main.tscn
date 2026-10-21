@@ -2,10 +2,17 @@
 
 [ext_resource type="Script" uid="uid://d3kily6644daw" path="res://example_small/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://cdu5tlyk72uu4" path="res://addons/gecs/ecs/world.gd" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://c6ok3gcnulhg" path="res://example_small/entities/e_player.tscn" id="3_b3u4i"]
 
 [node name="Main" type="Node" unique_id=1454665162]
 script = ExtResource("1_ig7tw")
 
 [node name="World" type="Node" parent="." unique_id=1892960088]
 script = ExtResource("2_0xm2m")
+entity_nodes_root = NodePath("Entities")
 metadata/_custom_type_script = "uid://cdu5tlyk72uu4"
+
+[node name="Entities" type="Node" parent="World" unique_id=133265891]
+
+[node name="Player" parent="World/Entities" unique_id=1335722326 instance=ExtResource("3_b3u4i")]
+position = Vector2(482, 696)
