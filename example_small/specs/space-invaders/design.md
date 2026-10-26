@@ -14,6 +14,9 @@
   logic.
 - Defer game-state transitions; damage and entity removal are enough for this
   iteration.
+- Implement and verify the feature in small runnable slices. Commit each
+  verified slice before beginning the next; avoid combining unfinished work
+  across slices.
 
 ## Entity and component responsibilities
 

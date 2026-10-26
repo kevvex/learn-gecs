@@ -43,6 +43,12 @@ downward. An enemy projectile hit reduces the player's health.
 - **REQ-009 — GECS integration:** Gameplay entities, state, and processing use
   the existing GECS world and `ECS.process()` loop. Structural entity changes
   made during system iteration use GECS's command buffer.
+- **REQ-010 — Prototype visuals:** Keep the existing player sprite. Represent
+  enemies and projectiles with simple, solid-color placeholder shapes using
+  Godot's built-in 2D nodes; do not create or source new art assets for this
+  prototype. Use distinct colors for player and enemy projectiles, and align
+  collision bounds with the visible shapes. Placeholders must be replaceable
+  with artwork later without changing gameplay behavior.
 
 ### Deferred
 
@@ -51,6 +57,8 @@ downward. An enemy projectile hit reduces the player's health.
 - Score, lives, shields, power-ups, and difficulty progression.
 - Audio, title/pause menus, and presentation polish beyond what is needed to
   identify the player, enemies, and projectiles.
+- Replacing the prototype shapes with final artwork, animation, or visual
+  effects.
 - Final balance values for player/enemy firing cadence, movement speed, health,
   and damage. These should be configurable and tuned during playtesting.
 
@@ -74,16 +82,23 @@ downward. An enemy projectile hit reduces the player's health.
 - **AC-008:** The loop runs through the example's GECS world; no game-over or
   victory behavior is required when health reaches zero or all current enemies
   are removed.
+- **AC-009:** The existing player sprite is retained. Enemies and projectiles
+  use built-in solid-color placeholder shapes, with distinguishable projectile
+  colors and collision bounds that match their visible shapes. No new art
+  assets are required.
 
-## Assumptions and open decisions
+## Confirmed scope decisions
 
 - The first version is one screen and uses the existing `example_small` player
   scene as its starting point.
-- Space is the default fire binding; movement uses configurable horizontal
-  input actions.
+- Space is the default fire binding. Configure firing and horizontal movement
+  actions in Godot's Input Map.
 - Enemy projectiles travel straight down. Enemy aiming and formation movement
   are not part of this first spec.
 - Enemy count, initial formation layout, visual collision sizes, and balance
   values are implementation/playtesting choices, not fixed requirements.
 - Health reaching zero may continue to use the existing `C_Dead` marker, but
   handling that state as a defeat is explicitly out of scope.
+
+The remaining open decisions are implementation details and playtesting values,
+not unresolved product-scope choices for this first version.
