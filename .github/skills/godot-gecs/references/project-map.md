@@ -2,6 +2,12 @@
 
 Use the source documentation directly; these links are relative to this file.
 
+## Godot engine knowledge
+
+- [Godot Master](../../../../../Game-Dev-Agentic-Skills/skills/godot-master/SKILL.md): primary reference for Godot 4.7+ engine, GDScript, architecture, and debugging guidance. Follow its routing to load only the references relevant to the task.
+- [GDScript mastery](../../../../../Game-Dev-Agentic-Skills/skills/godot-master/references/gdscript-mastery.md): GDScript language and implementation guidance.
+- [Debugging and profiling](../../../../../Game-Dev-Agentic-Skills/skills/godot-master/references/debugging-profiling.md): troubleshooting and profiling workflows.
+
 ## GECS fundamentals
 
 - [GECS README](../../../../addons/gecs/README.md): learning path, naming conventions, and topic index.
